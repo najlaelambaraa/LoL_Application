@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm ="clr-namespace:View.ModelViewPage"
+             xmlns:convert="clr-namespace:View.ConvertiseurImage"
+             x:Class="View.Page.AddChampionPage"
+             Title="AddChampionPage">
+   
+
+    <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Spacing="20">
+        <Label Text="Nouveau Champion" FontSize="Title" HorizontalOptions="Center" />
+       
+        <StackLayout Orientation="Horizontal" Spacing="10">
+            <Label Text="Nom:" FontSize="Subtitle" VerticalOptions="Center" />
+            <Entry  Text="{Binding EditableChampion.Name}" Placeholder="Nom du Champion" HorizontalOptions="FillAndExpand" />
+        </StackLayout>
+            
+        <StackLayout Orientation="Horizontal" Spacing="10">
+            <Label Text="Icône:" FontSize="Subtitle" VerticalOptions="Center" />
+            <ImageButton Source="{Binding EditableChampion.Icon,Converter={StaticResource Base64ToImageConverter}}" Command="{Binding PickIconCommand}"  />
+
+        </StackLayout>
+            
+        <StackLayout Orientation="Horizontal" Spacing="1">
+            <Label Text="Image:" FontSize="Subtitle" VerticalOptions="Center" />
+            <ImageButton Source="{Binding EditableChampion.Image,Converter={StaticResource Base64ToImageConverter}}" Command="{Binding PickImageCommand }"  />
+
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Bio:" FontSize="Subtitle" />
+            <Entry Text="{Binding EditableChampion.Bio}" Placeholder="Nom du Champion" HorizontalOptions="FillAndExpand" HeightRequest="200" WidthRequest="200"   />
+           
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center"  >
+            <Button Text="Ajouter" Command="{Binding SaveChampionCommand}" HorizontalOptions="Center" Padding="10" Margin="10" BackgroundColor="#DAA520"/>
+            <Button Text="Annuler" HorizontalOptions="Center" Padding="10" Margin="10" BackgroundColor="#DAA520" />
+        </StackLayout>
+    </StackLayout>
+    
+</ContentPage>
+

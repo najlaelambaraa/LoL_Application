@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="View.Page.HomeView"
+             Title="HomeView">
+    <VerticalStackLayout>
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Image Source="league.png" WidthRequest="300" HeightRequest="400" Margin="-50" ></Image>
+
+            </Grid>
+            <Grid Grid.Row="2">
+                <Label Text="League of" VerticalOptions="Center" HorizontalOptions="Center" FontFamily="35" FontSize="Title"></Label>
+                
+
+            </Grid>
+            <Grid Grid.Row="3">
+                    <Label Text="Legends Data" VerticalOptions="Center" HorizontalOptions="Center" FontFamily="30" FontSize ="Title"></Label>
+            </Grid>
+          <Grid Grid.Row="4">
+                    <Label Text="Find information about champions ,  " VerticalOptions="Center" HorizontalOptions="Center" FontFamily="10" FontSize="Header"></Label>
+          </Grid>
+            <Grid Grid.Row="5">
+                    <Label Text=" skins and runes  " VerticalOptions="Center" HorizontalOptions="Center" FontFamily="10" FontSize="Small"></Label>
+          </Grid>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

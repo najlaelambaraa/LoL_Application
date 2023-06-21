@@ -1,0 +1,79 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewM="clr-namespace:ViewModel;assembly=ViewModel"
+             xmlns:convert="clr-namespace:View.ConvertiseurImage"
+             xmlns:vm="clr-namespace:View.ModelViewPage"
+             xmlns:page="clr-namespace:View.Page"
+             x:Class="View.Page.ChampionsView"
+             Title="ChampionsView">
+ <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ajouter" Command="{Binding AddChampionCommand}" Priority="0" Order="Primary"/>
+    </ContentPage.ToolbarItems>
+    
+   <ContentPage.Resources>
+        <convert:Base64ToImageConverter x:Key="Base64ToImageConverter"/>
+    </ContentPage.Resources>
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="300" />
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <ListView ItemsSource="{Binding championManagerVm.Champions}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <SwipeView >
+                                        <SwipeView.RightItems>
+                                            <SwipeItem 
+                                                Text="Modifier" 
+                                                BackgroundColor="Gray"
+                                                Command="{Binding EditChampionCommand}"
+                                                
+                                            />
+                                            <SwipeItem Text="Supprimer" BackgroundColor="Red"/>
+                                        </SwipeView.RightItems>                          
+                                        <Grid ColumnDefinitions="50,*,20" ColumnSpacing="10">
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ChampionsViewM}}, Path=PushToDetailCommand}" CommandParameter="{Binding .}"/>
+                                            </Grid.GestureRecognizers>
+                                            <Image Source="{Binding Icon, Converter={StaticResource Base64ToImageConverter}}" HeightRequest="50" WidthRequest="50"/>
+                                            <StackLayout Orientation="Vertical" Grid.Column="1">
+                                                <Label Text="{Binding Name}" VerticalOptions="Center" FontAttributes="Bold"/>
+                                            
+                                            </StackLayout>
+                                        </Grid>
+                                    </SwipeView>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            <Grid Grid.Row="1" VerticalOptions="End" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <HorizontalStackLayout >
+                  
+                    <Button Text="L" HeightRequest="12 " Command="{Binding  PreviousPageCommand}"/>
+                    <Button Text="R"  HeightRequest="12 "
+                        Command="{Binding NextPageCommand}" />
+         
+
+                    </HorizontalStackLayout>
+            </Grid>
+        </Grid>
+        
+    </VerticalStackLayout>
+</ContentPage>

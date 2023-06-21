@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:convert="clr-namespace:View.ConvertiseurImage"
+             x:Class="View.Page.DetailChampion"
+             Title="DetailChampion">
+     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Modifier" Command="{Binding EditChampionCommand}" Priority="0" Order="Primary"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <convert:Base64ToImageConverter x:Key="Base64ToImageConverter"/>
+    </ContentPage.Resources>
+    <ContentView>
+    <ScrollView>
+        <VerticalStackLayout>
+        <Grid><Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+         <Grid Grid.Row="1" WidthRequest="420" HeightRequest="200" Margin="20">
+             <Image Source="{Binding ChampionVM.Image.Base64, Converter={StaticResource Base64ToImageConverter}}"></Image>
+            </Grid>
+       <Grid Grid.Row="2" Margin="20">
+           <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+           </Grid.ColumnDefinitions>
+                     
+           <Label
+            Grid.Column="0"
+            Text="{Binding ChampionVM.Name}"
+            VerticalOptions="Start" 
+            HorizontalOptions="Start"
+            TextColor="#B8860B"
+            />
+           <VerticalStackLayout  HorizontalOptions="End" Grid.Column="2" >
+            <Image HeightRequest="20" VerticalOptions="End"  HorizontalOptions="End"  WidthRequest="23" Source="mageicon.png" />         
+           <Label
+            Grid.Column="2"
+            Text="{Binding ChampionVM.Class}"
+            VerticalOptions="End" 
+            HorizontalOptions="End"
+            TextColor='#DAA520'/>
+
+            </VerticalStackLayout>
+               
+
+          
+           
+       </Grid>
+<Grid Grid.Row="3" Margin="20">
+    <Label
+    
+    Text="{Binding ChampionVM.Bio}"
+    VerticalOptions="Center" 
+    HorizontalOptions="Center"
+        TextColor="Black"/>
+</Grid>
+            <Grid Grid.Row="4">
+                    <Label Text="Caractéristique" FontFamily="20" FontSize="Title" Margin="12" TextColor="#B8860B"/>
+                    </Grid>
+        <Grid Grid.Row="5" HeightRequest="190">
+    <CollectionView ItemsSource="{Binding ChampionVM.Characteristics}">
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout Span="3" Orientation="Vertical" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Frame Padding="8">
+                    <Grid HeightRequest="50" WidthRequest="130">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="{Binding Key}" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Label Text="{Binding Value}" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Grid>
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</Grid>
+
+
+<Grid Grid.Row="6">
+    <Label Text="Compétences" FontFamily="25" FontSize="Title" TextColor="#B8860B"/>
+</Grid>
+<Grid Grid.Row="7">
+    <CollectionView ItemsSource="{Binding ChampionVM.Skills}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Grid Padding="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="0,5" /> 
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        Text="{Binding Name}"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        TextColor="#DAA520"
+                        Padding="0,0,10,0" />
+                    <Label
+                        Grid.Column="2"
+                        Text="{Binding Type}"
+                        VerticalOptions="Start"
+                        HorizontalOptions="End"
+                        TextColor="#DAA520"
+                        Padding="0,0,0,10" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Text="{Binding Description}"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        TextColor="Black"
+                        LineBreakMode="WordWrap"
+                        MaxLines="3" />
+                    <BoxView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" HeightRequest="1" BackgroundColor="Gray" /> 
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</Grid>
+ <Grid>
+        <ListView ItemsSource="{Binding Skill}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding Icon}" Margin="5"/>
+                        <Label Text="{Binding Name}"  Grid.Column="1"/>
+                        <Button Text="+" Margin="5"  Grid.Column="2"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+
+     </Grid>
+
+</VerticalStackLayout>
+</ScrollView>
+</ContentView>
+</ContentPage>
+
+   
+
