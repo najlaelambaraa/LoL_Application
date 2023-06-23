@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
 
          <Grid Grid.Row="1" WidthRequest="420" HeightRequest="200" Margin="20">
-             <Image Source="{Binding ChampionVM.Image.Base64, Converter={StaticResource Base64ToImageConverter}}"></Image>
+             <Image Source="{Binding ChampionVM.Image, Converter={StaticResource Base64ToImageConverter}}"></Image>
             </Grid>
        <Grid Grid.Row="2" Margin="20">
            <Grid.ColumnDefinitions>

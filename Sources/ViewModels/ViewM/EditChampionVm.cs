@@ -16,7 +16,7 @@ namespace ViewModels
             _bio = IsNew ? string.Empty : Model.Bio;
             icon = IsNew ? string.Empty : Model.Icon;
             _name = IsNew ? string.Empty : Model.Name;
-            image = IsNew ? string.Empty : Model.Image.Base64;
+            image = IsNew ? string.Empty : Model.Image;
             _classe = IsNew ? ChampionClass.Unknown : Model.Class;
             ListClasses = Enum.GetValues<ChampionClass>().Where(c => c != ChampionClass.Unknown).ToArray();
         }
@@ -113,7 +113,7 @@ namespace ViewModels
             {
                 Model.Bio = Bio;
                 Model.Icon = Icon;
-                Model.Image.Base64 = Image;
+                Model.Image = Image;
                 Model.Class = Class;
             }
             else

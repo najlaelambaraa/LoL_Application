@@ -42,13 +42,13 @@ namespace ViewModels
             }
         }
 
-        public LargeImage Image
+        public string Image
         {
-            get => Model.Image;
+            get => Model.Image.Base64;
             set
             {
                 if (model == null) return;
-                Model.Image = value;
+                Model.Image.Base64 = value;
                 OnPropertyChanged();
             }
         }

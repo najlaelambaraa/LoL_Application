@@ -12,7 +12,9 @@ namespace ViewModels
     {
             public ObservableCollection<ChampionVm> Champions { get; }
             public event PropertyChangedEventHandler? PropertyChanged;
-            public ICommand NextPageCommand { get; private set; }
+            public Command NextPageCommand { get; private set; }
+            public Command PreviousPageCommand { get; }
+            public Command DeleChampionCommand { get; }
             public ICommand DeleteChampionCommand { get; }
 
             public IDataManager DataManager
@@ -31,10 +33,12 @@ namespace ViewModels
             {
                 DataManager = dataManager;
                 Champions = new ObservableCollection<ChampionVm>();
-               
-                LoadChampions(index, Count).ConfigureAwait(false);
+            DeleteChampionCommand = new Command<ChampionVm>(async (ChampionVm obj) => await DeleteChampion(obj));
+            NextPageCommand = new Command(NextPage, CanExecuteNext);
+            PreviousPageCommand = new Command(PreviousPage, CanExecutePrevious);
+
+            LoadChampions(index, Count).ConfigureAwait(false);
                 PropertyChanged += ChampionManagerVM_PropertyChanged;
-                PropertyChanged += ChampionManager_PropertyChanged;
                 Total = this.DataManager.ChampionsMgr.GetNbItems().Result;
             }
 
@@ -47,7 +51,33 @@ namespace ViewModels
                 }
             }
 
-            public int Index
+        private void NextPage()
+        {
+            Index++;
+            RefreshCanExecute();
+
+        }
+        private void PreviousPage()
+        {
+            Index--;
+            RefreshCanExecute();
+        }
+        private bool CanExecutePrevious()
+        {
+            return Index > 1;
+        }
+        private bool CanExecuteNext()
+        {
+            var val = (this.Index) < this.PageTotale;
+            return val;
+        }
+        void RefreshCanExecute()
+        {
+            PreviousPageCommand.ChangeCanExecute();
+            NextPageCommand.ChangeCanExecute();
+        }
+
+        public int Index
             {
                 get => index;
                 set
@@ -77,14 +107,6 @@ namespace ViewModels
                     OnPropertyChanged();
                 }
             }
-            public int nombrepage(int GetNbItems, int count)
-            {
-                int result = GetNbItems / count;
-
-                if (result < 0) return result + 1;
-                else
-                    return result;
-            }
             protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -99,15 +121,6 @@ namespace ViewModels
                 foreach (var champion in modelChampions)
                 {
                     Champions.Add(new ChampionVm(champion));
-                }
-            }
-
-            private async void ChampionManager_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-            {
-                if (e.PropertyName == nameof(Index))
-                {
-                    Champions.Clear();
-                    await LoadChampions(Index, Count);
                 }
             }
 
