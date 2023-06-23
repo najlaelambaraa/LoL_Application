@@ -1,13 +1,12 @@
 ﻿using System;
-using Model;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using static System.Net.Mime.MediaTypeNames;
-using System.Collections.ObjectModel;
+using Model;
 
-namespace ViewModel
+namespace ViewModels
 {
-    public class EditChampionVm :  INotifyPropertyChanged
+    public class EditChampionVm : INotifyPropertyChanged
     {
         public ChampionVm Model { get; set; }
         public EditChampionVm(ChampionVm vm)
@@ -114,17 +113,16 @@ namespace ViewModel
             {
                 Model.Bio = Bio;
                 Model.Icon = Icon;
-                Model.Class = Class;
                 Model.Image.Base64 = Image;
-                
+                Model.Class = Class;
+            }
             else
-                {
+            {
+                
+                Model = new ChampionVm(new Champion(Name, ChampionClass.Unknown, Icon, "", Bio));
+                var data = "";
+               
 
-                    Model = new ChampionVm(new Champion(Name, ChampionClass.Unknown, Icon, "", Bio));
-                    var data = "";
-
-
-                }
             }
         }
     }

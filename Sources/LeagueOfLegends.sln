@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StubLib", "StubLib\StubLib.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "View\View.csproj", "{E247FCE5-AD0E-4E6B-BD8C-D01E99BE059C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{C118DE32-F945-4ED9-8E2E-B6A9EA7B9B17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\ViewModels.csproj", "{571BD072-7A40-4900-BCD3-30A81DFCE449}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +45,10 @@ Global
 		{E247FCE5-AD0E-4E6B-BD8C-D01E99BE059C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E247FCE5-AD0E-4E6B-BD8C-D01E99BE059C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E247FCE5-AD0E-4E6B-BD8C-D01E99BE059C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C118DE32-F945-4ED9-8E2E-B6A9EA7B9B17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C118DE32-F945-4ED9-8E2E-B6A9EA7B9B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C118DE32-F945-4ED9-8E2E-B6A9EA7B9B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C118DE32-F945-4ED9-8E2E-B6A9EA7B9B17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{571BD072-7A40-4900-BCD3-30A81DFCE449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{571BD072-7A40-4900-BCD3-30A81DFCE449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{571BD072-7A40-4900-BCD3-30A81DFCE449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{571BD072-7A40-4900-BCD3-30A81DFCE449}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

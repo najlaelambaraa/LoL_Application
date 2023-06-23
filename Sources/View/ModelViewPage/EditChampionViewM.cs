@@ -1,5 +1,7 @@
 ﻿using System;
-using ViewModel;
+using System.Collections.ObjectModel;
+using Model;
+using ViewModels;
 
 namespace View.ModelViewPage
 {
@@ -24,15 +26,21 @@ namespace View.ModelViewPage
         private ChampionManagerVM Manager;
         public EditChampionVm EditableChampion { get; }
         private ChampionVm ChampionVM;
+       
 
         public Command SaveChampionCommand { get; }
+       
 
         private async void SaveChampion()
         {
             Manager.SaveChampion(EditableChampion, ChampionVM);
             await Shell.Current.Navigation.PopAsync();
         }
-
+        public ReadOnlyDictionary<string, int> Characteristics
+        {
+            get => Characteristics;
+        }
+       
 
 
         private async Task PickIcon()

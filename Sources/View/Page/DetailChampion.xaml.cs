@@ -1,5 +1,5 @@
 ﻿using View.ModelViewPage;
-using ViewModel;
+using ViewModels;
 namespace View.Page;
 
 public partial class DetailChampion : ContentPage

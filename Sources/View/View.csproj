@@ -73,13 +73,13 @@
 	  <Folder Include="ModelViewPage\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Model\Model.csproj" />
-	  <ProjectReference Include="..\StubLib\StubLib.csproj" />
-	  <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
-	</ItemGroup>
-	<ItemGroup>
 	  <BundleResource Include="Resources\Images\league.png" />
 	  <BundleResource Include="Resources\Images\mage.png" />
 	  <BundleResource Include="Resources\Images\mageicon.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
+	  <ProjectReference Include="..\Model\Model.csproj" />
+	  <ProjectReference Include="..\StubLib\StubLib.csproj" />
 	</ItemGroup>
 </Project>

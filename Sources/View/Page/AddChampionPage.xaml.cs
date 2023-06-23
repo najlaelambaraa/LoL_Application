@@ -1,4 +1,4 @@
-﻿using ViewModel;
+﻿using ViewModels;
 using View.ModelViewPage;
 
 namespace View.Page;

@@ -1,6 +1,6 @@
 ﻿using System;
 using View.Page;
-using ViewModel;
+using ViewModels;
 
 namespace View.ModelViewPage
 {

@@ -17,13 +17,13 @@
             
         <StackLayout Orientation="Horizontal" Spacing="10">
             <Label Text="Icône:" FontSize="Subtitle" VerticalOptions="Center" />
-            <ImageButton Source="{Binding EditableChampion.Icon,Converter={StaticResource Base64ToImageConverter}}" Command="{Binding PickIconCommand}"  />
+            <ImageButton Source="{Binding EditableChampion.Icon,Converter={StaticResource Base64ToImageConverter}}" Command="{Binding PickIconCommand}" BackgroundColor="#D3D3D3" />
 
         </StackLayout>
             
         <StackLayout Orientation="Horizontal" Spacing="1">
             <Label Text="Image:" FontSize="Subtitle" VerticalOptions="Center" />
-            <ImageButton Source="{Binding EditableChampion.Image,Converter={StaticResource Base64ToImageConverter}}" Command="{Binding PickImageCommand }"  />
+            <ImageButton Source="{Binding EditableChampion.Image,Converter={StaticResource Base64ToImageConverter}}" Command="{Binding PickImageCommand }" BackgroundColor="#D3D3D3" />
 
         </StackLayout>
 
@@ -32,11 +32,33 @@
             <Entry Text="{Binding EditableChampion.Bio}" Placeholder="Nom du Champion" HorizontalOptions="FillAndExpand" HeightRequest="200" WidthRequest="200"   />
            
         </StackLayout>
-
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center"  >
+         <StackLayout Orientation="Horizontal" Margin="16" Spacing="10">
+                <Label Text="Classe:" FontSize="Subtitle" />
+               <ListView ItemsSource="{Binding EditableChampion.ListClasses}" SelectedItem="{Binding EditableChampion.Class}">
+    <ListView.ItemTemplate>
+        <DataTemplate>
+            <ViewCell>
+                <StackLayout Orientation="Horizontal" Padding="10">
+                   
+                    <Label Text="{Binding .}"
+                           VerticalTextAlignment="Center"
+                           HorizontalOptions="StartAndExpand"
+                           FontAttributes="Bold" />
+                </StackLayout>
+            </ViewCell>
+        </DataTemplate>
+    </ListView.ItemTemplate>
+</ListView>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center"  >
             <Button Text="Ajouter" Command="{Binding SaveChampionCommand}" HorizontalOptions="Center" Padding="10" Margin="10" BackgroundColor="#DAA520"/>
             <Button Text="Annuler" HorizontalOptions="Center" Padding="10" Margin="10" BackgroundColor="#DAA520" />
         </StackLayout>
+            </StackLayout>
+
+        
+         
+           
+               
     </StackLayout>
     
 </ContentPage>

@@ -1,7 +1,6 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewM="clr-namespace:ViewModel;assembly=ViewModel"
-             xmlns:convert="clr-namespace:View.ConvertiseurImage"
+              xmlns:convert="clr-namespace:View.ConvertiseurImage"
              xmlns:vm="clr-namespace:View.ModelViewPage"
              xmlns:page="clr-namespace:View.Page"
              x:Class="View.Page.ChampionsView"
@@ -26,15 +25,31 @@
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.View>
+                                    <VerticalStackLayout>
+                                        
+                                        
                                     <SwipeView >
+                                        
                                         <SwipeView.RightItems>
+                                                <SwipeItems>
+
+                                            
                                             <SwipeItem 
                                                 Text="Modifier" 
                                                 BackgroundColor="Gray"
-                                                Command="{Binding EditChampionCommand}"
+                                                Command=  "{Binding Source={RelativeSource AncestorType={x:Type vm:ChampionsViewM}}, Path=EditChampionCommand} "
+                                                CommandParameter="{Binding .}"
+
+
+                            
                                                 
                                             />
-                                            <SwipeItem Text="Supprimer" BackgroundColor="Red"/>
+                                           
+                                            <SwipeItem Text="Supprimer"
+                                                       BackgroundColor="Red"
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ChampionsViewM}}, Path=DeleteChampionCommand} "
+                                                       CommandParameter="{Binding .}" />
+                                                    </SwipeItems>
                                         </SwipeView.RightItems>                          
                                         <Grid ColumnDefinitions="50,*,20" ColumnSpacing="10">
                                             <Grid.GestureRecognizers>
@@ -47,6 +62,7 @@
                                             </StackLayout>
                                         </Grid>
                                     </SwipeView>
+                                    </VerticalStackLayout>
                                 </ViewCell.View>
                             </ViewCell>
                         </DataTemplate>
@@ -66,8 +82,10 @@
                 </Grid.RowDefinitions>
                 <HorizontalStackLayout >
                   
-                    <Button Text="L" HeightRequest="12 " Command="{Binding  PreviousPageCommand}"/>
-                    <Button Text="R"  HeightRequest="12 "
+                    <Button Text="L" HeightRequest="12 " WidthRequest="12" Padding="15" Command="{Binding  PreviousPageCommand}"/>
+                   
+              
+                    <Button Text="R"  HeightRequest="12 " Padding="10" WidthRequest="12" 
                         Command="{Binding NextPageCommand}" />
          
 
