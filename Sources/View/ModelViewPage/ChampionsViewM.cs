@@ -26,6 +26,7 @@ namespace View.ModelViewPage
             NextPageCommand = new Command(NextPage, CanExecuteNext);
             PreviousPageCommand = new Command(PreviousPage, CanExecutePrevious);
             AddChampionCommand = new Command(Addchampion);
+            EditChampionCommand = new Command<ChampionVm>(EditChampion);
 
         }
         private void NextPage()
@@ -67,7 +68,12 @@ namespace View.ModelViewPage
         {
             Shell.Current.Navigation.PushAsync(page: new AddChampionPage(new EditChampionViewM(championManagerVm, new EditChampionVm(null), null)));
         }
-       
+
+        private async void EditChampion(ChampionVm championVM)
+        {
+            await Shell.Current.Navigation.PushAsync(new AddChampionPage(new EditChampionViewM(championManagerVm, new EditChampionVm(championVM), championVM)));
+        }
+
     }
 }
 

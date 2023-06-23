@@ -6,7 +6,11 @@
              x:Class="View.Page.AddChampionPage"
              Title="AddChampionPage">
    
-
+    <ContentPage.Resources>
+        <convert:Base64ToImageConverter x:Key="Base64ToImageConverter"/>
+    </ContentPage.Resources>
+    <ScrollView>
+        
     <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Spacing="20">
         <Label Text="Nouveau Champion" FontSize="Title" HorizontalOptions="Center" />
        
@@ -17,19 +21,30 @@
             
         <StackLayout Orientation="Horizontal" Spacing="10">
             <Label Text="Icône:" FontSize="Subtitle" VerticalOptions="Center" />
-            <ImageButton Source="{Binding EditableChampion.Icon,Converter={StaticResource Base64ToImageConverter}}" Command="{Binding PickIconCommand}" BackgroundColor="#D3D3D3" />
+            <ImageButton
+                    Source="{Binding EditableChampion.Icon,Converter={StaticResource Base64ToImageConverter}}"
+                    Command="{Binding PickIconCommand}"
+                    BackgroundColor="#D3D3D3"
+                    HeightRequest="50"
+                    Aspect="AspectFit"/>
 
         </StackLayout>
             
         <StackLayout Orientation="Horizontal" Spacing="1">
             <Label Text="Image:" FontSize="Subtitle" VerticalOptions="Center" />
-            <ImageButton Source="{Binding EditableChampion.Image,Converter={StaticResource Base64ToImageConverter}}" Command="{Binding PickImageCommand }" BackgroundColor="#D3D3D3" />
+            <ImageButton
+                    Source="{Binding EditableChampion.Image,Converter={StaticResource Base64ToImageConverter}}"
+                    Command="{Binding PickImageCommand }"
+                    BackgroundColor="#D3D3D3"
+                    WidthRequest="200"
+                    HeightRequest="200"
+                    Aspect="AspectFit"/>
 
         </StackLayout>
 
         <StackLayout Orientation="Horizontal">
             <Label Text="Bio:" FontSize="Subtitle" />
-            <Entry Text="{Binding EditableChampion.Bio}" Placeholder="Nom du Champion" HorizontalOptions="FillAndExpand" HeightRequest="200" WidthRequest="200"   />
+            <Editor Text="{Binding EditableChampion.Bio}" Placeholder="Nom du Champion" HorizontalOptions="FillAndExpand" HeightRequest="200" WidthRequest="200"   />
            
         </StackLayout>
          <StackLayout Orientation="Horizontal" Margin="16" Spacing="10">
@@ -60,6 +75,8 @@
            
                
     </StackLayout>
+
+    </ScrollView>
     
 </ContentPage>
 
