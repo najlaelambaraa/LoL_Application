@@ -1,21 +1,21 @@
 ﻿using System;
+using CommunityToolkit.Mvvm.Input;
 using View.Page;
 using ViewModels;
 
 namespace View.ModelViewPage
 {
-	public class ChampionDetailViewM
+	public partial class ChampionDetailViewM
 	{
         public ChampionDetailViewM(ChampionManagerVM manager, ChampionVm championVm)
         {
             ChampionVM = championVm;
-            EditChampionCommand = new Command(EditChampion);
             Manager = manager;
         }
         public ChampionVm ChampionVM { get; }
         private ChampionManagerVM Manager;
-        public Command EditChampionCommand { get; }
 
+        [RelayCommand]
         private async void EditChampion()
         {
             await Shell.Current.Navigation.PushAsync(new AddChampionPage(new EditChampionViewM(Manager, new EditChampionVm(ChampionVM), ChampionVM)));

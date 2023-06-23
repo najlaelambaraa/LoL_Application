@@ -2,11 +2,12 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Model;
 
 namespace ViewModels
 {
-    public class EditChampionVm : INotifyPropertyChanged
+    public partial class EditChampionVm : ObservableObject
     {
         public ChampionVm Model { get; set; }
         public EditChampionVm(ChampionVm vm)
@@ -17,7 +18,7 @@ namespace ViewModels
             icon = IsNew ? string.Empty : Model.Icon;
             _name = IsNew ? string.Empty : Model.Name;
             image = IsNew ? string.Empty : Model.Image.Base64;
-            _classe = IsNew ? ChampionClass.Unknown : Model.Class;
+            _class = IsNew ? ChampionClass.Unknown : Model.Class;
             ListClasses = Enum.GetValues<ChampionClass>().Where(c => c != ChampionClass.Unknown).ToArray();
         }
 
@@ -25,87 +26,31 @@ namespace ViewModels
 
         public IEnumerable<ChampionClass> ListClasses { get; }
 
+        [ObservableProperty]
         private string _name;
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (_name == value) return;
-                _name = value;
-                OnPropertyChanged();
-            }
-        }
+
+        [ObservableProperty]
         private string icon;
 
-        public string Icon
-        {
-            get => icon;
-            set
-            {
-                if (icon == value) return;
-                icon = value;
-                OnPropertyChanged();
-            }
-        }
+        [ObservableProperty]
         private string _bio;
-        public string Bio
-        {
-            get => _bio;
-            set
-            {
-                if (_bio == value) return;
-                _bio = value;
-                OnPropertyChanged();
-            }
-        }
 
 
 
+        [ObservableProperty]
         private string image;
-        public string Image
-        {
-            get => image;
-            set
-            {
-                if (image == value) return;
-                image = value;
-                OnPropertyChanged();
-            }
-        }
 
-        private ChampionClass _classe;
-        public ChampionClass Class
-        {
-            get => _classe;
-            set
-            {
-                if (_classe == null) return;
-                _classe = value;
-                OnPropertyChanged();
-            }
-        }
+        [ObservableProperty]
+        private ChampionClass _class;
 
+        [ObservableProperty]
         private int index;
-        public int Index
-        {
-            get => index;
-            set
-            {
-                if (index == value) return;
-                index = value;
-                OnPropertyChanged();
-            }
-        }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        
 
         public ReadOnlyDictionary<string, int> Characteristics
         {
             get => Model.Characteristics;
         }
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public void SaveChampion()
         {

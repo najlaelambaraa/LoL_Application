@@ -5,70 +5,34 @@ using Model;
 using System.Windows.Input;
 using static StubLib.StubData;
 using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace View.ModelViewPage
 {
-	public class ChampionsViewM
+	public partial class ChampionsViewM
 	{
-        public Command NextPageCommand { get; private set; }
-        public Command PreviousPageCommand { get; }
-        public Command EditChampionCommand { get; }
         public ChampionManagerVM championManagerVm { get; }
-        public Command DeleteChampionCommand { get; private set; }
         
 
         public ChampionsViewM(ChampionManagerVM championManager)
 
         {
             championManagerVm = championManager;
-            PushToDetailCommand = new Command<ChampionVm>(PushToDetail);
-            DeleteChampionCommand = new Command<ChampionVm>(async (ChampionVm obj) => await championManagerVm.DeleteChampion(obj));
-            NextPageCommand = new Command(NextPage, CanExecuteNext);
-            PreviousPageCommand = new Command(PreviousPage, CanExecutePrevious);
-            AddChampionCommand = new Command(Addchampion);
-            EditChampionCommand = new Command<ChampionVm>(EditChampion);
-
-        }
-        private void NextPage()
-        {
-            championManagerVm.Index++;
-            RefreshCanExecute();
-
-        }
-        private void PreviousPage()
-        {
-            championManagerVm.Index--;
-            RefreshCanExecute();
-        }
-        private bool CanExecutePrevious()
-        {
-            return championManagerVm.Index > 1;
-        }
-        private bool CanExecuteNext()
-        {
-            var val = (this.championManagerVm.Index) < this.championManagerVm.PageTotale;
-            return val;
-        }
-        void RefreshCanExecute()
-        {
-
-            PreviousPageCommand.ChangeCanExecute();
-            NextPageCommand.ChangeCanExecute();
         }
 
-        public Command PushToDetailCommand { get; }
-        public Command AddChampionCommand { get; }
-
+        [RelayCommand]
         private void PushToDetail(ChampionVm champion)
         {
             Shell.Current.Navigation.PushAsync(new DetailChampion(new ChampionDetailViewM(championManagerVm, champion)));
         }
 
-        private void Addchampion()
+        [RelayCommand]
+        private void AddChampion()
         {
             Shell.Current.Navigation.PushAsync(page: new AddChampionPage(new EditChampionViewM(championManagerVm, new EditChampionVm(null), null)));
         }
 
+        [RelayCommand]
         private async void EditChampion(ChampionVm championVM)
         {
             await Shell.Current.Navigation.PushAsync(new AddChampionPage(new EditChampionViewM(championManagerVm, new EditChampionVm(championVM), championVM)));

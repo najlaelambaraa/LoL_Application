@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 using Model;
 using ViewModels;
 
 namespace View.ModelViewPage
 {
-	public class EditChampionViewM
+	public partial class EditChampionViewM
 	{
-        public Command PickIconCommand { get; }
-        public Command PickImageCommand { get; }
 
         public EditChampionViewM(ChampionManagerVM manager, EditChampionVm aditableChampion,ChampionVm championVM)
         {
             Manager = manager;
             EditableChampion = aditableChampion;
             ChampionVM = championVM;
-            SaveChampionCommand = new Command(SaveChampion);
-            PickIconCommand = new Command(async () => await PickIcon());
-            PickImageCommand = new Command(async () => await PickImage());
             Title = aditableChampion.IsNew ? "Create" : "Update";
         }
 
@@ -28,9 +24,8 @@ namespace View.ModelViewPage
         private ChampionVm ChampionVM;
        
 
-        public Command SaveChampionCommand { get; }
-       
 
+        [RelayCommand]
         private async void SaveChampion()
         {
             Manager.SaveChampion(EditableChampion, ChampionVM);
@@ -40,9 +35,9 @@ namespace View.ModelViewPage
         {
             get => Characteristics;
         }
-       
 
 
+        [RelayCommand]
         private async Task PickIcon()
         {
             var result = await FilePicker.PickAsync(new PickOptions
@@ -60,6 +55,7 @@ namespace View.ModelViewPage
             }
         }
 
+        [RelayCommand]
         private async Task PickImage()
         {
             var result = await FilePicker.PickAsync(new PickOptions

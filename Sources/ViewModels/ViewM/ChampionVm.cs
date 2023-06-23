@@ -2,10 +2,11 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Model;
 namespace ViewModels
 {
-    public class ChampionVm : INotifyPropertyChanged
+    public class ChampionVm : ObservableObject
     {
         public ChampionVm(Champion champion) => Model = champion;
 
@@ -19,10 +20,7 @@ namespace ViewModels
             get => model;
             set
             {
-                if (value.Equals(model)) return;
-                if (value == null) return;
                 model = value;
-                OnPropertyChanged();
             }
         }
 
@@ -34,43 +32,23 @@ namespace ViewModels
         public string Icon
         {
             get => Model.Icon;
-            set
-            {
-                if (model == null) return;
-                Model.Icon = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(Model.Icon, value, Model, (mod, val) => model.Icon = val);
         }
 
         public LargeImage Image
         {
             get => Model.Image;
-            set
-            {
-                if (model == null) return;
-                Model.Image = value;
-                OnPropertyChanged();
-            }
+            set=> SetProperty(Model.Image, value, Model, (mod, val) => model.Image = val);
         }
         public ChampionClass Class
         {
             get => Model.Class;
-            set
-            {
-                if (model == null) return;
-                Model.Class = value;
-                OnPropertyChanged();
-            }
+            set=> SetProperty(Model.Class, value, Model, (mod, val) => model.Class = val);
         }
         public string Bio
         {
             get => Model.Bio;
-            set
-            {
-                if (model == null) return;
-                Model.Bio = value;
-                OnPropertyChanged();
-            }
+            set=> SetProperty(Model.Bio, value, Model, (mod, val) => model.Bio = val);
         }
         private ObservableCollection<Skill> skills;
         public HashSet<Skill> Skills
@@ -82,13 +60,6 @@ namespace ViewModels
                 skills = new ObservableCollection<Skill>(Skills);
                 OnPropertyChanged();
             }
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

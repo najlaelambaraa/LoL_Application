@@ -47,7 +47,7 @@
                                            
                                             <SwipeItem Text="Supprimer"
                                                        BackgroundColor="Red"
-                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ChampionsViewM}}, Path=DeleteChampionCommand} "
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ChampionsViewM}}, Path=championManagerVm.DeleteChampionCommand} "
                                                        CommandParameter="{Binding .}" />
                                                     </SwipeItems>
                                         </SwipeView.RightItems>                          
@@ -82,11 +82,11 @@
                 </Grid.RowDefinitions>
                 <HorizontalStackLayout >
                   
-                    <Button Text="L" HeightRequest="12 " WidthRequest="12" Padding="15" Command="{Binding  PreviousPageCommand}"/>
+                    <Button Text="L" HeightRequest="12 " WidthRequest="12" Padding="15" Command="{Binding  championManagerVm.PreviousPageCommand}"/>
                    
               
                     <Button Text="R"  HeightRequest="12 " Padding="10" WidthRequest="12" 
-                        Command="{Binding NextPageCommand}" />
+                        Command="{Binding championManagerVm.NextPageCommand}" />
          
 
                     </HorizontalStackLayout>

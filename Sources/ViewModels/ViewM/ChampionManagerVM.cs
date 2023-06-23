@@ -3,27 +3,21 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Model;
 
 
 namespace ViewModels
 {
-	public class ChampionManagerVM : INotifyPropertyChanged
+	public partial class ChampionManagerVM : ObservableObject
     {
             public ObservableCollection<ChampionVm> Champions { get; }
-            public event PropertyChangedEventHandler? PropertyChanged;
-            public ICommand NextPageCommand { get; private set; }
-            public ICommand DeleteChampionCommand { get; }
 
             public IDataManager DataManager
             {
                 get => _dataManager;
-                set
-                {
-                    if (_dataManager == value) return;
-                    _dataManager = value;
-                    OnPropertyChanged();
-                }
+                set => _dataManager = value;
             }
             private IDataManager _dataManager { get; set; }
 
@@ -34,7 +28,6 @@ namespace ViewModels
                
                 LoadChampions(index, Count).ConfigureAwait(false);
                 PropertyChanged += ChampionManagerVM_PropertyChanged;
-                PropertyChanged += ChampionManager_PropertyChanged;
                 Total = this.DataManager.ChampionsMgr.GetNbItems().Result;
             }
 
@@ -47,48 +40,21 @@ namespace ViewModels
                 }
             }
 
-            public int Index
-            {
-                get => index;
-                set
-                {
-                    if (index == value) return;
-                    index = value;
-                    OnPropertyChanged();
-                }
-            }
-            private int index;
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(PreviousPageCommand),nameof(NextPageCommand))]
+        private int index;
 
             public int Count
             {
                 get;
                 set;
             } = 5;
+
             public int PageTotale { get { return this.total / Count + ((this.total % Count) > 0 ? 1 : 0); } }
 
-            private int total;
+        [ObservableProperty]
+        private int total;
 
-            public int Total
-            {
-                get => total;
-                private set
-                {
-                    total = value;
-                    OnPropertyChanged();
-                }
-            }
-            public int nombrepage(int GetNbItems, int count)
-            {
-                int result = GetNbItems / count;
-
-                if (result < 0) return result + 1;
-                else
-                    return result;
-            }
-            protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
 
             private async Task LoadChampions(int index, int count)
             {
@@ -102,14 +68,6 @@ namespace ViewModels
                 }
             }
 
-            private async void ChampionManager_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-            {
-                if (e.PropertyName == nameof(Index))
-                {
-                    Champions.Clear();
-                    await LoadChampions(Index, Count);
-                }
-            }
 
             public async void SaveChampion(EditChampionVm editableChampionVM, ChampionVm? championVM)
             {
@@ -132,10 +90,29 @@ namespace ViewModels
 
             }
 
+        [RelayCommand(CanExecute =nameof(CanExecuteNext))]
+        private void NextPage()
+        {
+            Index++;
 
-           
+        }
 
-            private async void updatePagination()
+        [RelayCommand(CanExecute =nameof(CanExecutePrevious))]
+        private void PreviousPage()
+        {
+            Index--;
+        }
+        private bool CanExecutePrevious()
+        {
+            return Index > 1;
+        }
+        private bool CanExecuteNext()
+        {
+            var val = (this.Index) < this.PageTotale;
+            return val;
+        }
+
+        private async void updatePagination()
             {
 
 
@@ -151,6 +128,8 @@ namespace ViewModels
                 OnPropertyChanged(nameof(PageTotale));
 
             }
+
+        [RelayCommand]
         public async Task DeleteChampion(ChampionVm champion)
         {
             if (champion is null) return;
